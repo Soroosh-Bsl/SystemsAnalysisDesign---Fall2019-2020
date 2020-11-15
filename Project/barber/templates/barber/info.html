@@ -1,0 +1,210 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'base/css/base_profile.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="bc-profile">
+            <img align="left" class="bc-image-lg" src="{% static 'base/img/profile_bg1.jpg' %}"
+                 alt="Profile image example"/>
+            <img align="left" class="bc-image-profile" src="{% static 'base/img/default_avatar.png' %}"
+                 alt="Profile image example"/>
+            <h2 class="bc-profile-text">
+                <h1>{{ barbershop.name }} </h1>
+                <p>{{ barbershop.barber.first_name }} {{ barbershop.barber.last_name }}</p>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                            <style>
+                                .checked {
+                                    color: orange;
+                                }
+                            </style>
+                                {% if rating == 0%}
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif rating == 1 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif rating == 2 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif rating == 3 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif rating == 4 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif rating == 5 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                {% endif %} <p style="color: darkorange; display: inline" >{{ rating_exact }}</p>
+                        <style>
+                            span.blue {
+                                  background: #5178D0;
+                                  border-radius: 0.8em;
+                                  -moz-border-radius: 0.8em;
+                                  -webkit-border-radius: 0.8em;
+                                  color: #ffffff;
+                                  display: inline-block;
+                                  font-weight: bold;
+                                  line-height: 1.6em;
+                                  margin-right: 15px;
+                                  text-align: center;
+                                  width: 1.6em;
+                                }
+
+                        </style> <h2><span class="blue"> {{ rank }}</span><small>out of {{ total_number_of_barbershops }}</small> </h2></h2>
+{#                    </li>#}
+{#            </div>#}
+            </div>
+        </div>
+    </div> <!-- /container -->
+    <div class="container">
+{#        {% block data %}#}
+
+            <div class="col-md-5 pull-left">
+            <div class="card" style="width: 54rem;">
+                <div class="card-header">
+                    <h3>Information</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h4>Introduction: {{ barbershop.introduction }}</h4></li>
+                    <li class="list-group-item"><h4>City: {{ barbershop.city }}</h4></li>
+                    <li class="list-group-item"><h4>Foundation Year: {{ barbershop.foundation_year }}</h4></li>
+                    <li class="list-group-item"><h4>Address: {{ barbershop.address }}</h4></li>
+                    <li class="list-group-item"><h4>Phone: {{ barbershop.phone }}</h4></li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="col-md-6 pull-right">
+            <h3>Services</h3>
+            {% if services %}
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Duration</th>
+                            <th>Price</th>
+                        </tr>
+                        {% for service in services %}
+                            <tr>
+                                <td>{{ service.name }}</td>
+                                <td>{{ service.duration }}</td>
+                                {% if service.discounted_price > 0.0 %}
+                                    <td><s>{{ service.price }}</s><br><b>{{ service.discounted_price }}</b></td>
+                                {% else %}
+                                    <td>{{ service.price }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-info">No services introduced yet.</div>
+            {% endif %}
+            </div>
+{#        {% endblock %}#}
+{#    </div>#}
+{#    <div class="container">#}
+      <div class="col-md-6 pull-right">
+        <div class="card" style="width: 54rem;">
+                <div class="card-header">
+            <h3>Comments</h3>
+            {% if previous_comments or True %}
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>user</th>
+                            <th>review</th>
+                            <th>rate</th>
+                        </tr>
+                        {% for comment in shop_comments %}
+                            <tr>
+                            <td>{{ comment.customer.username }}</td>
+                            <td>{{ comment.content }}</td>
+
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                            <style>
+                                .checked {
+                                    color: orange;
+                                }
+                            </style>
+                            <td>
+                                {% if comment.rate == 0%}
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif comment.rate == 1 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif comment.rate == 2 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif comment.rate == 3 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif comment.rate == 4 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                {% elif comment.rate == 5 %}
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-info">No comments yet.</div>
+            {% endif %}
+            {% if add_comment %}
+                <div onclick="(() => {window.location = '{% url 'comment' barbershop_name=barbershop.name %}'})()">
+                    <button type="button" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-plus"></span>
+                        new comment
+                    </button>
+                </div>
+            {% endif %}
+                </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+{#{% endblock %}#}
